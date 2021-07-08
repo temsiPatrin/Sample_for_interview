@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Sample for interview</string>
+
+    //Error
+    <string name="error_check_internet_connection">Check Internet Connection</string>
+    <string name="error_oops_error_occured">Oops!! An Error Occurred</string>
+    <string name="status">Status:</string>
+    <string name="species">Species:</string>
+    <string name="gender">Gender:</string>
 </resources>
