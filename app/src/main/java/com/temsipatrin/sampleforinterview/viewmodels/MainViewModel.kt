@@ -1,6 +1,5 @@
 package com.temsipatrin.sampleforinterview.viewmodels
 
-import android.util.Log
 import androidx.annotation.StringRes
 import com.temsipatrin.sampleforinterview.domain.usecases.GetCharactersShortUseCase
 import com.temsipatrin.sampleforinterview.domain.usecases.GetPageInfoUseCase
@@ -37,7 +36,7 @@ class MainViewModel(
         fetchData()
     }
 
-    fun fetchData() {
+    private fun fetchData() {
         _state.value = State.ShowLoading
         viewModelJob = launchCoroutine {
              getPageInfoUseCase.execute().collect {
