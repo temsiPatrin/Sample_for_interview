@@ -1,4 +1,4 @@
-package com.temsipatrin.sampleforinterview.ui
+package com.temsipatrin.sampleforinterview.ui.fagment
 
 import android.os.Bundle
 import android.util.Log
@@ -6,11 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StringRes
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.temsipatrin.sampleforinterview.R
 import com.temsipatrin.sampleforinterview.databinding.MainFragmentBinding
 import com.temsipatrin.sampleforinterview.ui.adapter.CharactersAdapter
+import com.temsipatrin.sampleforinterview.utils.remove
+import com.temsipatrin.sampleforinterview.utils.show
 import com.temsipatrin.sampleforinterview.viewmodels.MainViewModel
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -31,12 +36,19 @@ class MainFragment : Fragment(R.layout.main_fragment), CharactersAdapter.OnCardC
         initView()
         observeState()
 
-        viewModel.fetchData()
         return binding.root
     }
 
     private fun initView() {
         adapter = CharactersAdapter(this)
+        binding.rvCharacters.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                val position = (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                if (position + 1 == adapter.data.size) {
+                    updateData()
+                }
+            }
+        })
         binding.rvCharacters.adapter = adapter
         binding.rvCharacters.layoutManager = GridLayoutManager(requireContext(),2)
     }
@@ -53,18 +65,39 @@ class MainFragment : Fragment(R.layout.main_fragment), CharactersAdapter.OnCardC
         when(state){
             is MainViewModel.State.CharactersLoaded ->{
                 adapter.data = state.data
-                Log.d("test",state.data.toString())
-
-
+                hideError()
+                hideLoading()
             }
             is MainViewModel.State.ShowLoading ->{
-
+                hideError()
+                showLoading()
             }
             is MainViewModel.State.ShowError -> {
-
+                hideLoading()
+                showError(state.stringId)
             }
         }
 
+    }
+
+    private fun showLoading(){
+        binding.progressBar.show()
+    }
+    private fun hideLoading(){
+        binding.progressBar.remove()
+    }
+    private fun showError(@StringRes message: Int){
+        binding.imageError.show()
+        binding.textError.show()
+        binding.textError.text = getString(message)
+    }
+    private fun hideError(){
+        binding.imageError.remove()
+        binding.textError.remove()
+    }
+
+    private fun updateData(){
+        viewModel.updateData()
     }
 
     override fun onDestroyView() {

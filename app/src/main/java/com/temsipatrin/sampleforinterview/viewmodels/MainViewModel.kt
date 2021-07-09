@@ -33,6 +33,10 @@ class MainViewModel(
         _state.value = State.ShowError(message)
     }
 
+    init {
+        fetchData()
+    }
+
     fun fetchData() {
         _state.value = State.ShowLoading
         viewModelJob = launchCoroutine {
@@ -44,7 +48,6 @@ class MainViewModel(
     }
 
     fun updateData() {
-        Log.d("test","test")
         if (currentlyPage < pageCount) {
             _state.value = State.ShowLoading
             viewModelJob = launchCoroutine {
