@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.collect
 class CharacterInfoViewModel(
     characterId: Int,
     private val getCharactersUseCase: GetCharactersUseCase
-): BaseViewModel() {
+) : BaseViewModel() {
 
     private var viewModelJob: Job? = null
 

@@ -10,12 +10,12 @@ interface GetPageInfoUseCase {
     suspend fun execute(): Flow<PageInfoUi>
 }
 
-class GetPageInfoUseCaseImpl(private val repo: CharacterRepository): GetPageInfoUseCase{
+class GetPageInfoUseCaseImpl(private val repo: CharacterRepository) : GetPageInfoUseCase {
     override suspend fun execute(): Flow<PageInfoUi> {
-        return repo.getPagesInfo(FIRST_PAGE).map { it.toPresentation()}
+        return repo.getPagesInfo(FIRST_PAGE).map { it.toPresentation() }
     }
 
-    companion object{
+    companion object {
         const val FIRST_PAGE = 1
     }
 }

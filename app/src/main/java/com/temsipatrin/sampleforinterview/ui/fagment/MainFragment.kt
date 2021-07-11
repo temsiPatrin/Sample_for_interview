@@ -29,9 +29,11 @@ class MainFragment : Fragment(R.layout.main_fragment), CharactersAdapter.OnCardC
 
     private lateinit var adapter: CharactersAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
-        _binding = MainFragmentBinding.inflate(inflater,container,false)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = MainFragmentBinding.inflate(inflater, container, false)
 
         initView()
         observeState()
@@ -43,14 +45,15 @@ class MainFragment : Fragment(R.layout.main_fragment), CharactersAdapter.OnCardC
         adapter = CharactersAdapter(this)
         binding.rvCharacters.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                val position = (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                val position =
+                    (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
                 if (position + 1 == adapter.data.size) {
                     updateData()
                 }
             }
         })
         binding.rvCharacters.adapter = adapter
-        binding.rvCharacters.layoutManager = GridLayoutManager(requireContext(),2)
+        binding.rvCharacters.layoutManager = GridLayoutManager(requireContext(), 2)
     }
 
     private fun observeState() {
@@ -61,14 +64,14 @@ class MainFragment : Fragment(R.layout.main_fragment), CharactersAdapter.OnCardC
         }
     }
 
-    private fun setState(state: MainViewModel.State){
-        when(state){
-            is MainViewModel.State.CharactersLoaded ->{
+    private fun setState(state: MainViewModel.State) {
+        when (state) {
+            is MainViewModel.State.CharactersLoaded -> {
                 adapter.data = state.data
                 hideError()
                 hideLoading()
             }
-            is MainViewModel.State.ShowLoading ->{
+            is MainViewModel.State.ShowLoading -> {
                 hideError()
                 showLoading()
             }
@@ -80,23 +83,26 @@ class MainFragment : Fragment(R.layout.main_fragment), CharactersAdapter.OnCardC
 
     }
 
-    private fun showLoading(){
+    private fun showLoading() {
         binding.progressBar.show()
     }
-    private fun hideLoading(){
+
+    private fun hideLoading() {
         binding.progressBar.remove()
     }
-    private fun showError(@StringRes message: Int){
+
+    private fun showError(@StringRes message: Int) {
         binding.imageError.show()
         binding.textError.show()
         binding.textError.text = getString(message)
     }
-    private fun hideError(){
+
+    private fun hideError() {
         binding.imageError.remove()
         binding.textError.remove()
     }
 
-    private fun updateData(){
+    private fun updateData() {
         viewModel.updateData()
     }
 

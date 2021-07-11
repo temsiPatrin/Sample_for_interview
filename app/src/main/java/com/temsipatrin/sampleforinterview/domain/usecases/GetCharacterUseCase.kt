@@ -10,9 +10,9 @@ interface GetCharactersUseCase {
     suspend fun execute(id: Int): Flow<CharacterUi>
 }
 
-class GetCharactersUseCaseImpl(private val repo: CharacterRepository): GetCharactersUseCase{
+class GetCharactersUseCaseImpl(private val repo: CharacterRepository) : GetCharactersUseCase {
     override suspend fun execute(id: Int): Flow<CharacterUi> {
-        return repo.getCharacter(id).map { it.toPresentation()}
+        return repo.getCharacter(id).map { it.toPresentation() }
     }
 
 }

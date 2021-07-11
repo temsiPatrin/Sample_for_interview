@@ -10,9 +10,11 @@ interface SearchCharactersShortUseCase {
     suspend fun execute(page: Int, name: String): Flow<List<CharacterShortUi>>
 }
 
-class SearchCharactersShortUseCaseImpl(private val repo: SearchCharacterRepository): SearchCharactersShortUseCase{
+class SearchCharactersShortUseCaseImpl(private val repo: SearchCharacterRepository) :
+    SearchCharactersShortUseCase {
     override suspend fun execute(page: Int, name: String): Flow<List<CharacterShortUi>> {
-        return repo.getCharacterListByPage(page, name).map { listDomain -> listDomain.map { it.toPresentationShort() } }
+        return repo.getCharacterListByPage(page, name)
+            .map { listDomain -> listDomain.map { it.toPresentationShort() } }
     }
 
 }

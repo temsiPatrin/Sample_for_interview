@@ -10,9 +10,11 @@ interface GetCharactersShortUseCase {
     suspend fun execute(page: Int): Flow<List<CharacterShortUi>>
 }
 
-class GetCharactersShortUseCaseImpl(private val repo: CharacterRepository): GetCharactersShortUseCase{
+class GetCharactersShortUseCaseImpl(private val repo: CharacterRepository) :
+    GetCharactersShortUseCase {
     override suspend fun execute(page: Int): Flow<List<CharacterShortUi>> {
-        return repo.getCharacterListByPage(page).map { listDomain -> listDomain.map { it.toPresentationShort() } }
+        return repo.getCharacterListByPage(page)
+            .map { listDomain -> listDomain.map { it.toPresentationShort() } }
     }
 
 }

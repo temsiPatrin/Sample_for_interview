@@ -39,7 +39,7 @@ class MainViewModel(
     private fun fetchData() {
         _state.value = State.ShowLoading
         viewModelJob = launchCoroutine {
-             getPageInfoUseCase.execute().collect {
+            getPageInfoUseCase.execute().collect {
                 pageCount = it.pages
                 updateData()
             }
@@ -59,12 +59,10 @@ class MainViewModel(
         }
     }
 
-
     override fun onCleared() {
         viewModelJob?.cancel()
         super.onCleared()
     }
-
 
     sealed class State {
         data class CharactersLoaded(val data: List<CharacterShortUi>) : State()

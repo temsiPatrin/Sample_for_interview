@@ -1,7 +1,6 @@
 package com.temsipatrin.sampleforinterview.ui.fagment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -49,6 +48,7 @@ class CharacterInfoFragment : Fragment(R.layout.fragment_character_info) {
             }
         }
     }
+
     private fun setState(state: CharacterInfoViewModel.State){
         when(state){
             is CharacterInfoViewModel.State.CharacterInfoLoaded ->{
@@ -70,14 +70,17 @@ class CharacterInfoFragment : Fragment(R.layout.fragment_character_info) {
     private fun showLoading(){
         binding.loading.show()
     }
+
     private fun hideLoading(){
         binding.loading.remove()
     }
+
     private fun showError(@StringRes message: Int){
         binding.imageError.show()
         binding.textError.show()
         binding.textError.text = getString(message)
     }
+
     private fun hideError(){
         binding.imageError.remove()
         binding.textError.remove()
@@ -96,6 +99,4 @@ class CharacterInfoFragment : Fragment(R.layout.fragment_character_info) {
             .apply(RequestOptions.bitmapTransform(RoundedCorners(12)))
             .into(binding.image)
     }
-
-
 }

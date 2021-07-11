@@ -1,8 +1,6 @@
 package com.temsipatrin.sampleforinterview.ui.models
 
 import com.temsipatrin.sampleforinterview.R
-import com.temsipatrin.sampleforinterview.domain.models.Location
-import com.temsipatrin.sampleforinterview.domain.models.Origin
 
 data class CharacterShortUi(
     val id: Int,
