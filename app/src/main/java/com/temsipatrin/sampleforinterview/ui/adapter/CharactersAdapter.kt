@@ -8,7 +8,6 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.temsipatrin.sampleforinterview.databinding.ItemCharacterBinding
 import com.temsipatrin.sampleforinterview.ui.models.CharacterShortUi
-import com.temsipatrin.sampleforinterview.ui.models.CharacterUi
 
 class CharactersAdapter(private val onClickListener: OnCardClickListener) :
     RecyclerView.Adapter<CharactersAdapter.ViewHolder>() {

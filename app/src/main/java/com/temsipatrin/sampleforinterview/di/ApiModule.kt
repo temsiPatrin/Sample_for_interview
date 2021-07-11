@@ -16,7 +16,6 @@ val apiModule = module {
         return httpLoggingInterceptor
     }
 
-
     fun provideOkHttpClient(
         logInterceptor: HttpLoggingInterceptor
     ): OkHttpClient =
