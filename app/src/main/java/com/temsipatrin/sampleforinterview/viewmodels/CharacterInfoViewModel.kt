@@ -2,6 +2,7 @@ package com.temsipatrin.sampleforinterview.viewmodels
 
 import androidx.annotation.StringRes
 import com.temsipatrin.sampleforinterview.domain.usecases.GetCharactersUseCase
+import com.temsipatrin.sampleforinterview.ui.mappers.toPresentation
 import com.temsipatrin.sampleforinterview.ui.models.CharacterUi
 import com.temsipatrin.sampleforinterview.utils.ExceptionHandler
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -34,7 +35,7 @@ class CharacterInfoViewModel(
         _state.value = State.ShowLoading
         viewModelJob = launchCoroutine {
             getCharactersUseCase.execute(characterId).collect {
-                _state.value = State.CharacterInfoLoaded(it)
+                _state.value = State.CharacterInfoLoaded(it.toPresentation())
             }
         }
     }

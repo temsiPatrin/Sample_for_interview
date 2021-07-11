@@ -3,6 +3,8 @@ package com.temsipatrin.sampleforinterview.viewmodels
 import androidx.annotation.StringRes
 import com.temsipatrin.sampleforinterview.domain.usecases.GetCharactersShortUseCase
 import com.temsipatrin.sampleforinterview.domain.usecases.GetPageInfoUseCase
+import com.temsipatrin.sampleforinterview.ui.mappers.toPresentation
+import com.temsipatrin.sampleforinterview.ui.mappers.toPresentationShort
 import com.temsipatrin.sampleforinterview.ui.models.CharacterShortUi
 import com.temsipatrin.sampleforinterview.utils.ExceptionHandler
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -50,8 +52,8 @@ class MainViewModel(
         if (currentlyPage < pageCount) {
             _state.value = State.ShowLoading
             viewModelJob = launchCoroutine {
-                getCharactersShortUseCase.execute(currentlyPage).collect {
-                    listCharacters.addAll(it)
+                getCharactersShortUseCase.execute(currentlyPage).collect { list ->
+                    listCharacters.addAll(list.map { it.toPresentationShort() })
                     _state.value = State.CharactersLoaded(listCharacters)
                 }
             }
